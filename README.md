@@ -1,7 +1,8 @@
 **Turmas APP**
 =============
 
-* [.php7.3] PHP >= 7.3
+* [.Git](https://github.com/adolfoaugusto/team)
+* [.php7.3](https://www.php.net/) PHP >= 7.3
 
 Api implemented for full programmer testing, developed api laravel backend and frontend react, using docker-compose.
 
@@ -33,4 +34,4 @@ Install project:
 **Credits**
 ------------
 
-By [Contributing] me Adolfo Augusto Rodrigues.
+By [.Contributing](https://github.com/adolfoaugusto) me Adolfo Augusto Rodrigues.
