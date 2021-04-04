@@ -13,8 +13,14 @@ class CreateAlunosTable extends Migration
      */
     public function up()
     {
-        Schema::create('alunos', function (Blueprint $table) {
-            $table->id();
+        Schema::create('alunos', function (Blueprint $table) 
+        {
+            $table->bigIncrements('id');
+            $table->string('nome', 100);
+            $table->string('telefone')->nullable();
+            $table->string('email');
+            $table->date('data_nascimento')->nullable();
+            $table->string('genero')->nullable();
             $table->timestamps();
         });
     }
