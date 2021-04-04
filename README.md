@@ -12,7 +12,7 @@ Install project:
 1. `cd turmas` and `docker-compose up -d`
 1. `docker exec -it laravel-app composer install`
 1. `docker exec -it laravel-app php artisan key:generate`
-1. ...
+1. `docker exec -it laravel-app php artisan migrate`
 1. ...
 
 **Laravel**
