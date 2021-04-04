@@ -13,8 +13,13 @@ class CreateTurmasTable extends Migration
      */
     public function up()
     {
-        Schema::create('turmas', function (Blueprint $table) {
-            $table->id();
+        Schema::create('turmas', function (Blueprint $table) 
+        {
+            $table->bigIncrements('id');
+            $table->year('ano_execulcao_turma');
+            $table->enum('nivel_ensino', ['fundamental', 'medio']);
+            $table->integer('serie');
+            $table->string('turno', 10); //manhã, tarde, noite
             $table->timestamps();
         });
     }
