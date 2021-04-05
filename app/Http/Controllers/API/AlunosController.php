@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Aluno;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,8 @@ class AlunosController extends Controller
      */
     public function index()
     {
-        //
+        $aluno = Aluno::with('turmas')->get();
+        return response()->json($aluno);
     }
 
     /**
