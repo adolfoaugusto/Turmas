@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\Aluno;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Turma;
 
 class AlunosController extends Controller
 {
@@ -15,7 +16,7 @@ class AlunosController extends Controller
      */
     public function index()
     {
-        $aluno = Aluno::with('turmas')->get();
+        $aluno = Aluno::with('turmas')->paginate(10);
         return response()->json($aluno);
     }
 
@@ -27,7 +28,16 @@ class AlunosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $aluno = new Aluno();
+        $aluno->fill($request->all());
+        $aluno->save();
+
+        if(!is_null($request->turma_id)){
+            $turma = Turma::find($request->turma_id);
+            $aluno->Turmas()->attach($turma);
+        }
+
+        return response()->json($aluno, 201);
     }
 
     /**
@@ -38,7 +48,15 @@ class AlunosController extends Controller
      */
     public function show($id)
     {
-        //
+        $aluno = Aluno::find($id);
+        
+        if(!$aluno) {
+            return response()->json([
+                'message'   => 'Record not found',
+            ], 404);
+        }
+        
+        return response()->json($aluno);
     }
 
     /**
@@ -50,7 +68,23 @@ class AlunosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $aluno = Aluno::findOrFail($id);
+
+        if(!$aluno) {
+            return response()->json([
+                'message'   => 'Record not found',
+            ], 404);
+        }
+
+        $aluno->fill($request->all());
+        $aluno->save();
+
+        if($aluno->turma_id){
+            $turma = Turma::find($aluno->turma_id);
+            $aluno->Turmas()->attach($turma);
+        }
+
+        return response()->json($aluno);
     }
 
     /**
@@ -61,6 +95,15 @@ class AlunosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $aluno = Aluno::findOrFail($id);
+
+        if(!$aluno) {
+            return response()->json([
+                'message'   => 'Record not found',
+            ], 404);
+        }
+
+        $aluno->Turmas()->detach($aluno->Turmas);
+        $aluno->delete();
     }
 }
