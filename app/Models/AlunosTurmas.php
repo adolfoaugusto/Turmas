@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,7 +16,7 @@ class AlunosTurmas extends Model
    *
    * @var array
    */
-   protected $visible = [
+   protected $fillable = [
       'aluno_id','turma_id'
    ];
 }
