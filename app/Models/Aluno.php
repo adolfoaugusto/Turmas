@@ -1,18 +1,18 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Aluno extends Model
 {
-    protected $visible = [
+    protected $fillable = [
         'nome', 'telefone', 'email', 'data_nascimento', 'genero'
     ];
 
     public function Turmas()
     {
-        return $this->belongsToMany('App\Turma', 'alunos_turmas', 'turma_id', 'aluno_id');
+        return $this->belongsToMany('App\Models\Turma', 'alunos_turmas');
     }
 
 }

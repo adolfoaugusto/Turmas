@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
+use App\Models\Turma;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TurmasController extends Controller
 {
@@ -14,7 +15,8 @@ class TurmasController extends Controller
      */
     public function index()
     {
-        //
+        $turmas = Turma::all();
+        return response()->json($turmas);
     }
 
     /**
@@ -25,7 +27,11 @@ class TurmasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $turmas = new Turma();
+        $turmas->fill($request->all());
+        $turmas->save();
+
+        return response()->json($turmas, 201);
     }
 
     /**
@@ -36,7 +42,15 @@ class TurmasController extends Controller
      */
     public function show($id)
     {
-        //
+        $turmas = Turma::find($id);
+        
+        if(!$turmas) {
+            return response()->json([
+                'message'   => 'Record not found',
+            ], 404);
+        }
+
+        return response()->json($turmas);
     }
 
     /**
@@ -48,7 +62,18 @@ class TurmasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $turma = Turma::findOrFail($id);
+
+        if(!$turma) {
+            return response()->json([
+                'message'   => 'Record not found',
+            ], 404);
+        }
+
+        $turma->fill($request->all());
+        $turma->save();
+
+        return response()->json($turma);
     }
 
     /**
@@ -59,6 +84,14 @@ class TurmasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $turma = Turma::findOrFail($id);
+
+        if(!$turma) {
+            return response()->json([
+                'message'   => 'Record not found',
+            ], 404);
+        }
+
+        $turma->delete();
     }
 }

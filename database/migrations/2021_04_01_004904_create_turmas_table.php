@@ -17,7 +17,7 @@ class CreateTurmasTable extends Migration
         {
             $table->bigIncrements('id');
             $table->year('ano_execulcao_turma');
-            $table->enum('nivel_ensino', ['fundamental', 'medio']);
+            $table->string('nivel_ensino', 15); //Fundamental, Médio
             $table->integer('serie');
             $table->string('turno', 10); //manhã, tarde, noite
             $table->timestamps();
