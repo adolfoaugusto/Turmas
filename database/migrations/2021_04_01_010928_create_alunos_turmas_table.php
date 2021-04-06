@@ -17,12 +17,11 @@ class CreateAlunosTurmasTable extends Migration
 		{
 			$table->id();
 			$table->bigInteger('aluno_id')->unsigned();
+			$table->foreign('aluno_id')->references('id')->on('alunos');
+			
 			$table->bigInteger('turma_id')->unsigned();
-
-			$table->foreign('aluno_id')->references('id')->on('alunos')
-												->onUpdate('cascade')->onDelete('cascade');
-			$table->foreign('turma_id')->references('id')->on('turmas')
-												->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('turma_id')->references('id')->on('turmas');
+			
 			$table->timestamps();
 		});
 	}
