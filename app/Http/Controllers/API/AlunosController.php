@@ -48,7 +48,7 @@ class AlunosController extends Controller
      */
     public function show($id)
     {
-        $aluno = Aluno::find($id);
+        $aluno = Aluno::with('turmas')->find($id);
         
         if(!$aluno) {
             return response()->json([
@@ -68,7 +68,7 @@ class AlunosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $aluno = Aluno::findOrFail($id);
+        $aluno = Aluno::with('turmas')->find($id);
 
         if(!$aluno) {
             return response()->json([
@@ -78,11 +78,7 @@ class AlunosController extends Controller
 
         $aluno->fill($request->all());
         $aluno->save();
-
-        if($aluno->turma_id){
-            $turma = Turma::find($aluno->turma_id);
-            $aluno->Turmas()->attach($turma);
-        }
+        // $aluno->Turmas->sync($aluno->Turmas);
 
         return response()->json($aluno);
     }
@@ -103,7 +99,6 @@ class AlunosController extends Controller
             ], 404);
         }
 
-        $aluno->Turmas()->detach($aluno->Turmas);
         $aluno->delete();
     }
 }
